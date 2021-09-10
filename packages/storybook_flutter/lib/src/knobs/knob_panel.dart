@@ -16,8 +16,10 @@ class KnobGroupWidget extends StatelessWidget {
         maintainState: true,
         childrenPadding: const EdgeInsets.only(bottom: 12),
         children: [
-          ...group.knobs.values
-              .map((v) => v.build(customLabel: v.groupedLabel)),
+          ...group.knobs.values.map(
+            (v) => v.build(
+                customLabel: v.groupedLabel.isEmpty ? v.label : v.groupedLabel),
+          )
         ],
       );
 }

@@ -94,10 +94,11 @@ class MyApp extends StatelessWidget {
                   const Option('bottomRight', Alignment.bottomRight),
                 ],
               ),
-              color: k.options<Color Function(BuildContext)>(
+              color: k.options<Color? Function(BuildContext)>(
                 label: 'color',
                 initial: (BuildContext context) => Colors.blue,
                 options: [
+                  Option('null', (_) => null),
                   Option('blue', (_) => Colors.blue),
                   Option('red', (_) => Colors.red),
                   Option('yellow', (_) => Colors.yellow),

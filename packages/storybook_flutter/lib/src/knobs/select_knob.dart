@@ -46,8 +46,9 @@ class SelectKnobWidget<T> extends StatelessWidget {
 
     if (option.value is Color) {
       _color = option.value as Color;
-    } else if (option.value is Color Function(BuildContext)) {
-      _color = (option.value as Color Function(BuildContext))(context);
+    } else if (option.value is Color Function(BuildContext) ||
+        option.value is Color? Function(BuildContext)) {
+      _color = (option.value as Color? Function(BuildContext))(context);
     }
 
     if (_color != null) {
