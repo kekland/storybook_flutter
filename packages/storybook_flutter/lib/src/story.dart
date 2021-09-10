@@ -86,8 +86,9 @@ class _StoryState extends State<Story> {
     Widget child = effectiveWrapper(
       context,
       widget,
-      widget._builder(context, context.watch<StoryProvider>()),
+      (context) => widget._builder(context, context.watch<StoryProvider>()),
     );
+
     for (final plugin in context.watch<ControlPanelProvider>().plugins) {
       child = plugin.storyBuilder(
         context,
@@ -104,8 +105,8 @@ class _StoryState extends State<Story> {
 }
 
 final StoryWrapperBuilder _defaultWrapperBuilder =
-    (_, story, child) => Container(
+    (_, story, builder) => Container(
           color: story.background,
           padding: story.padding,
-          child: Center(child: child),
+          child: Center(child: builder(_)),
         );

@@ -9,12 +9,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Storybook(
-        storyWrapperBuilder: (context, story, child) => Stack(
+        storyWrapperBuilder: (context, story, builder) => Stack(
           children: [
             Container(
               padding: story.padding,
               color: Theme.of(context).canvasColor,
-              child: Center(child: child),
+              child: Center(child: builder(context)),
             ),
             Padding(
               padding: const EdgeInsets.all(8),

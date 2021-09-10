@@ -14,7 +14,7 @@ import 'package:storybook_flutter/src/theme_mode_provider.dart';
 typedef StoryWrapperBuilder = Widget Function(
   BuildContext context,
   Story story,
-  Widget child,
+  WidgetBuilder builder,
 );
 
 /// A collection of stories.
