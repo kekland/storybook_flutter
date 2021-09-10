@@ -11,29 +11,15 @@ class KnobGroupWidget extends StatelessWidget {
   final KnobGroup group;
 
   @override
-  Widget build(BuildContext context) {
-    if (group.knobs.length == 1) {
-      return group.knobs.values.single.build();
-    }
-
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(left: 16, bottom: 8),
-          child: Text(
-            group.label,
-            style: Theme.of(context).textTheme.subtitle1!.copyWith(
-                  fontWeight: FontWeight.w600,
-                ),
-          ),
-        ),
-        ...group.knobs.values.map((v) => v.build(customLabel: v.groupedLabel)),
-        const Divider(height: 8),
-      ],
-    );
-  }
+  Widget build(BuildContext context) => ExpansionTile(
+        title: Text(group.label),
+        maintainState: true,
+        childrenPadding: const EdgeInsets.only(bottom: 12),
+        children: [
+          ...group.knobs.values
+              .map((v) => v.build(customLabel: v.groupedLabel)),
+        ],
+      );
 }
 
 class KnobPanel extends StatelessWidget {
@@ -49,7 +35,7 @@ class KnobPanel extends StatelessWidget {
               : ListView.separated(
                   padding: const EdgeInsets.symmetric(vertical: 8),
                   separatorBuilder: (context, index) =>
-                      const SizedBox(height: 8),
+                      const SizedBox(height: 0),
                   itemCount: items.length,
                   itemBuilder: (context, index) => KnobGroupWidget(
                     group: items[index],
