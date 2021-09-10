@@ -10,8 +10,9 @@ class SelectKnob<T> extends Knob<T> {
   final List<Option<T>> options;
 
   @override
-  Widget build() => SelectKnobWidget<T>(
+  Widget build({String? customLabel}) => SelectKnobWidget<T>(
         label: label,
+        customLabel: customLabel,
         value: value,
         values: options,
       );
@@ -29,20 +30,49 @@ class SelectKnobWidget<T> extends StatelessWidget {
   const SelectKnobWidget({
     Key? key,
     required this.label,
+    this.customLabel,
     required this.values,
     required this.value,
   }) : super(key: key);
 
   final String label;
+  final String? customLabel;
   final List<Option<T>> values;
   final T value;
+
+  Widget _buildOption(BuildContext context, Option<T> option) {
+    final label = Text(option.text);
+    Color? _color;
+
+    if (option.value is Color) {
+      _color = option.value as Color;
+    } else if (option.value is Color Function(BuildContext)) {
+      _color = (option.value as Color Function(BuildContext))(context);
+    }
+
+    if (_color != null) {
+      return Row(
+        children: [
+          Container(
+            width: 16,
+            height: 16,
+            color: _color,
+          ),
+          const SizedBox(width: 12),
+          label,
+        ],
+      );
+    }
+
+    return label;
+  }
 
   @override
   Widget build(BuildContext context) => ListTile(
         title: DropdownButtonFormField<Option<T>>(
           decoration: InputDecoration(
             isDense: true,
-            labelText: label,
+            labelText: customLabel ?? label,
             border: const OutlineInputBorder(),
           ),
           isExpanded: true,
@@ -50,7 +80,7 @@ class SelectKnobWidget<T> extends StatelessWidget {
           items: values
               .map((e) => DropdownMenuItem<Option<T>>(
                     value: e,
-                    child: Text(e.text),
+                    child: _buildOption(context, e),
                   ))
               .toList(),
           onChanged: (v) {

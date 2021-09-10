@@ -7,14 +7,17 @@ class StringKnob extends Knob<String> {
   StringKnob(String label, String value) : super(label, value);
 
   @override
-  Widget build() => StringKnobWidget(label: label, value: value);
+  Widget build({String? customLabel}) =>
+      StringKnobWidget(label: label, customLabel: customLabel, value: value);
 }
 
 class StringKnobWidget extends StatelessWidget {
-  const StringKnobWidget({Key? key, required this.label, required this.value})
+  const StringKnobWidget(
+      {Key? key, required this.label, this.customLabel, required this.value})
       : super(key: key);
 
   final String label;
+  final String? customLabel;
   final String value;
 
   @override
@@ -22,7 +25,7 @@ class StringKnobWidget extends StatelessWidget {
         title: TextFormField(
           decoration: InputDecoration(
             isDense: true,
-            labelText: label,
+            labelText: customLabel ?? label,
             border: const OutlineInputBorder(),
           ),
           initialValue: value,

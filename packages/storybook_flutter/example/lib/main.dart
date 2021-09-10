@@ -80,6 +80,34 @@ class MyApp extends StatelessWidget {
               ),
             ),
           ),
+          Story(
+            name: 'Grouping test',
+            builder: (_, k) => Container(
+              width: k.number(label: 'size.width', initial: 100),
+              height: k.number(label: 'size.height', initial: 64),
+              alignment: k.options(
+                label: 'alignment',
+                initial: Alignment.center,
+                options: [
+                  const Option('topLeft', Alignment.topLeft),
+                  const Option('center', Alignment.center),
+                  const Option('bottomRight', Alignment.bottomRight),
+                ],
+              ),
+              color: k.options<Color Function(BuildContext)>(
+                label: 'color',
+                initial: (BuildContext context) => Colors.blue,
+                options: [
+                  Option('blue', (_) => Colors.blue),
+                  Option('red', (_) => Colors.red),
+                  Option('yellow', (_) => Colors.yellow),
+                  Option('green', (_) => Colors.green),
+                  Option('orange', (_) => Colors.orange),
+                ],
+              )(_),
+              child: Text('${k.sliderInt(label: 'Value')}'),
+            ),
+          ),
         ],
       );
 }

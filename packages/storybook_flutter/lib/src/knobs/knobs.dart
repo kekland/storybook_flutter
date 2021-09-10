@@ -7,7 +7,9 @@ abstract class Knob<T> {
   final String label;
   T value;
 
-  Widget build();
+  Widget build({String? customLabel});
+
+  String get groupedLabel => label.split('.').sublist(1).join('.');
 }
 
 /// Provides helper methods for creating knobs: control elements
@@ -37,6 +39,12 @@ abstract class KnobsBuilder {
     double initial = 0,
     double max = 1,
     double min = 0,
+  });
+
+  double number({
+    required String label,
+    double initial,
+    bool Function(double)? validator,
   });
 
   /// Creates slider knob with `int` value.

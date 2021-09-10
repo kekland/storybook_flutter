@@ -20,8 +20,9 @@ class SliderKnob extends Knob<double> {
   final FormatDouble formatValue;
 
   @override
-  Widget build() => SliderKnobWidget(
+  Widget build({String? customLabel}) => SliderKnobWidget(
         label: label,
+        customLabel: customLabel,
         value: value,
         min: min,
         max: max,
@@ -34,6 +35,7 @@ class SliderKnobWidget extends StatelessWidget {
   const SliderKnobWidget({
     Key? key,
     required this.label,
+    this.customLabel,
     required this.value,
     required this.min,
     required this.max,
@@ -42,6 +44,7 @@ class SliderKnobWidget extends StatelessWidget {
   }) : super(key: key);
 
   final String label;
+  final String? customLabel;
   final double min;
   final double max;
   final double value;
@@ -57,7 +60,7 @@ class SliderKnobWidget extends StatelessWidget {
           min: min,
           divisions: divisions,
         ),
-        title: Text('$label (${formatValue(value)})'),
+        title: Text('${customLabel ?? label} (${formatValue(value)})'),
       );
 }
 

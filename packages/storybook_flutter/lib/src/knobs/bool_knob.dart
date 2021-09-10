@@ -8,19 +8,28 @@ class BoolKnob extends Knob<bool> {
   BoolKnob(String label, bool value) : super(label, value);
 
   @override
-  Widget build() => BooleanKnobWidget(label: label, value: value);
+  Widget build({String? customLabel}) => BooleanKnobWidget(
+        label: label,
+        customLabel: customLabel,
+        value: value,
+      );
 }
 
 class BooleanKnobWidget extends StatelessWidget {
-  const BooleanKnobWidget({Key? key, required this.label, required this.value})
-      : super(key: key);
+  const BooleanKnobWidget({
+    Key? key,
+    required this.label,
+    required this.value,
+    this.customLabel,
+  }) : super(key: key);
 
   final String label;
+  final String? customLabel;
   final bool value;
 
   @override
   Widget build(BuildContext context) => CheckboxListTile(
-        title: Text(label),
+        title: Text(customLabel ?? label),
         value: value,
         onChanged: (v) => context.read<StoryProvider>().update(label, v),
       );
