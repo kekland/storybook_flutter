@@ -83,24 +83,26 @@ class _StoryState extends State<Story> {
         context.watch<StoryWrapperBuilder?>() ??
         _defaultWrapperBuilder;
 
-    Widget child = effectiveWrapper(
+    return effectiveWrapper(
       context,
       widget,
-      (context) => widget._builder(context, context.watch<StoryProvider>()),
+      (context) {
+        Widget child = widget._builder(context, context.watch<StoryProvider>());
+
+        for (final plugin in context.watch<ControlPanelProvider>().plugins) {
+          child = plugin.storyBuilder(
+            context,
+            widget,
+            child,
+            context
+                .watch<PluginSettingsNotifier>()
+                .get<dynamic>(plugin.runtimeType),
+          );
+        }
+
+        return child;
+      },
     );
-
-    for (final plugin in context.watch<ControlPanelProvider>().plugins) {
-      child = plugin.storyBuilder(
-        context,
-        widget,
-        child,
-        context
-            .watch<PluginSettingsNotifier>()
-            .get<dynamic>(plugin.runtimeType),
-      );
-    }
-
-    return child;
   }
 }
 

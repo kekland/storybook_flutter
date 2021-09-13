@@ -42,8 +42,12 @@ class _GroupedSelectKnobWidgetState<T>
     extends State<GroupedSelectKnobWidget<T>> {
   OverlayEntry? _entry;
 
-  Widget _buildOption(BuildContext context, Option<T> option) {
-    final label = Text(option.text);
+  Widget _buildOption(
+    BuildContext context,
+    Option<T> option, {
+    String? customLabel,
+  }) {
+    final label = Text(customLabel ?? option.text);
     Color? _color;
 
     if (option.value is Color) {
@@ -95,7 +99,7 @@ class _GroupedSelectKnobWidgetState<T>
     return ListTileTheme(
       dense: true,
       child: ExpansionTile(
-        title: _buildOption(context, options.first),
+        title: _buildOption(context, options.first, customLabel: group),
         initiallyExpanded: options.any((v) => v.value == widget.value),
         children: [
           ...options.map(
