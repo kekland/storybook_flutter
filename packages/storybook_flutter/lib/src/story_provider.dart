@@ -1,6 +1,7 @@
 import 'package:collection/collection.dart' show IterableExtension;
 import 'package:flutter/foundation.dart';
 import 'package:storybook_flutter/src/knobs/bool_knob.dart';
+import 'package:storybook_flutter/src/knobs/grouped_select_knob.dart';
 import 'package:storybook_flutter/src/knobs/knobs.dart';
 import 'package:storybook_flutter/src/knobs/number_knob.dart';
 import 'package:storybook_flutter/src/knobs/select_knob.dart';
@@ -91,6 +92,13 @@ class StoryProvider extends ChangeNotifier implements KnobsBuilder {
     List<Option<T>> options = const [],
   }) =>
       _addKnob(SelectKnob(label, initial, options));
+
+  @override
+  T groupedOptions<T>({
+    required String label,
+    required T initial,
+     Map<String, List<Option<T>>> options = const {},
+  }) => _addKnob(GropuedSelectKnob(label, initial, options));
 
   T _addKnob<T>(Knob<T> value) {
     final _label = _KnobLabel.fromLabel(value.label);

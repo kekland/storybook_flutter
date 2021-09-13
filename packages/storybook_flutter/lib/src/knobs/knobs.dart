@@ -62,4 +62,10 @@ abstract class KnobsBuilder {
     required T initial,
     List<Option<T>> options = const [],
   });
+
+  T groupedOptions<T>({
+    required String label,
+    required T initial,
+    Map<String, List<Option<T>>> options = const {},
+  });
 }

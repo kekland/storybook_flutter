@@ -94,17 +94,32 @@ class MyApp extends StatelessWidget {
                   const Option('bottomRight', Alignment.bottomRight),
                 ],
               ),
-              color: k.options<Color? Function(BuildContext)>(
+              color: k.groupedOptions<Color? Function(BuildContext)>(
                 label: 'color',
                 initial: (BuildContext context) => Colors.blue,
-                options: [
-                  Option('null', (_) => null),
-                  Option('blue', (_) => Colors.blue),
-                  Option('red', (_) => Colors.red),
-                  Option('yellow', (_) => Colors.yellow),
-                  Option('green', (_) => Colors.green),
-                  Option('orange', (_) => Colors.orange),
-                ],
+                options: {
+                  'null': [Option('null', (_) => null)],
+                  'reds': [
+                    Option('red', (_) => Colors.red),
+                    Option('yellow', (_) => Colors.yellow),
+                    Option('orange', (_) => Colors.orange),
+                  ],
+                  'blues': [
+                    Option('blue', (_) => Colors.blue),
+                    Option('purple', (_) => Colors.purple),
+                    Option('indigo', (_) => Colors.indigo),
+                  ],
+                  'greens': [
+                    Option('green', (_) => Colors.green),
+                    Option('lime', (_) => Colors.lime),
+                    Option('cyan', (_) => Colors.cyan),
+                  ],
+                  'other': [
+                    Option('brown', (_) => Colors.brown),
+                    Option('grey', (_) => Colors.grey),
+                    Option('blueGrey', (_) => Colors.blueGrey),
+                  ],
+                },
               )(_),
               child: Text('${k.sliderInt(label: 'Value')}'),
             ),
