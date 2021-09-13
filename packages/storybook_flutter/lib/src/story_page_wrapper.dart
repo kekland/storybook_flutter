@@ -4,6 +4,7 @@ import 'package:storybook_flutter/src/contents.dart';
 import 'package:storybook_flutter/src/control_panel/widgets/control_panel.dart';
 import 'package:storybook_flutter/src/current_story.dart';
 import 'package:storybook_flutter/src/story_provider.dart';
+import 'package:storybook_flutter/storybook_flutter.dart';
 
 class StoryPageWrapper extends StatelessWidget {
   const StoryPageWrapper({Key? key}) : super(key: key);
@@ -11,6 +12,8 @@ class StoryPageWrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) => LayoutBuilder(
         builder: (context, constraints) {
+          final effectiveWrapper = context.watch<StoryWrapperBuilder?>();
+
           final data = context.watch<StoryProvider>();
           final story = data.currentStory;
           final isFullPage = data.isFullPage;
@@ -23,7 +26,12 @@ class StoryPageWrapper extends StatelessWidget {
 
           final children = [
             const Expanded(child: CurrentStory()),
-            if (!isFullPage) ControlPanel(direction: direction),
+            if (!isFullPage)
+              effectiveWrapper!(
+                context,
+                null,
+                (context) => ControlPanel(direction: direction),
+              ),
           ];
           final theme = Theme.of(context);
 

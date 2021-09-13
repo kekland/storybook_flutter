@@ -13,7 +13,7 @@ import 'package:storybook_flutter/src/theme_mode_provider.dart';
 
 typedef StoryWrapperBuilder = Widget Function(
   BuildContext context,
-  Story story,
+  Story? story,
   WidgetBuilder builder,
 );
 

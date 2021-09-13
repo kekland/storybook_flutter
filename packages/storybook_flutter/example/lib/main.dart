@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
         storyWrapperBuilder: (context, story, builder) => Stack(
           children: [
             Container(
-              padding: story.padding,
+              padding: story?.padding,
               color: Theme.of(context).canvasColor,
               child: Center(child: builder(context)),
             ),
@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
               child: Align(
                 alignment: Alignment.topRight,
                 child: Text(
-                  story.name,
+                  story?.name ?? '',
                   style: const TextStyle(fontStyle: FontStyle.italic),
                 ),
               ),

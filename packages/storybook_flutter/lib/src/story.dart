@@ -108,7 +108,7 @@ class _StoryState extends State<Story> {
 
 final StoryWrapperBuilder _defaultWrapperBuilder =
     (_, story, builder) => Container(
-          color: story.background,
-          padding: story.padding,
+          color: story?.background,
+          padding: story?.padding,
           child: Center(child: builder(_)),
         );
